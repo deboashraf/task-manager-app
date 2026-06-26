@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manger/feature/auth/bloc/auth_event.dart';
 import 'package:task_manger/feature/auth/bloc/auth_state.dart';
@@ -7,7 +6,6 @@ import 'package:task_manger/feature/auth/repository/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository repository;
-  final Logger _logger = Logger();
 
   AuthBloc(this.repository) : super(AuthInitial()) {
 
@@ -28,8 +26,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(AuthSuccess(user: user));
       } catch (e) {
-        _logger.e("Login Error: $e");
-        emit( AuthFailure(message: "Login failed"));
+         print("LOGIN ERROR: $e");
+  emit( AuthFailure(message: "Login failed"));
       }
     });
 
@@ -51,7 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(AuthSuccess(user: user));
       } catch (e) {
-        _logger.e("Register Error: $e");
         emit( AuthFailure(message: "Registration failed"));
       }
     });

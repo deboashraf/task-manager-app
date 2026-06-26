@@ -13,21 +13,22 @@ class ProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final isActive = project.stock > 0;
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin:  EdgeInsets.only(bottom: 16),
-        padding:  EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.cardColor,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
-              offset:  Offset(0, 5),
+              offset: const Offset(0, 5),
             ),
           ],
         ),
@@ -37,16 +38,21 @@ class ProjectCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    project.title,
-                    style:  TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child: Hero(
+                    tag: "project_${project.id}",
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        project.title,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 Container(
-                  padding:  EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 6,
                   ),
@@ -67,12 +73,12 @@ class ProjectCard extends StatelessWidget {
                 ),
               ],
             ),
-             SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               project.disc,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style:  TextStyle(color: Colors.black54),
+              style: theme.textTheme.bodySmall,
             ),
           ],
         ),

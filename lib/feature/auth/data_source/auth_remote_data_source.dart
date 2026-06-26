@@ -1,55 +1,33 @@
-import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
 import 'package:task_manger/core/network/dio_server.dart';
 import 'package:task_manger/feature/auth/model/user_model.dart';
 
 class AuthRemoteDataSource {
-  static final Logger logger =Logger();
   final DioService dioService;
-
 
   AuthRemoteDataSource(this.dioService);
   Future<UserModel> login(String username, String password) async {
-  logger.e("calling API...");
+    await Future.delayed(const Duration(milliseconds: 500));
 
-  final response = await dioService.dio.post(
-    'auth/login',
-    data: {
-      "username": username.trim(),
-      "password": password.trim(),
-      "expiresInMins": 30,
-    },
-    options: Options(
-      contentType: Headers.jsonContentType,
-    ),
-  );
+    if (username == "emilys" && password == "emilyspass") {
+      return UserModel(
+        id: 1,
+        username: "emilys",
+        email: "emily@test.com",
+        accessToken: "dummy_token",
+      );
+    }
 
-  logger.e("Response:");
-  logger.e(response.data);
+    throw Exception("Invalid credentials");
+  }
 
-  return UserModel.fromJson(response.data);
-}
+  Future<UserModel> register(String name, String email, String password) async {
+    await Future.delayed(const Duration(milliseconds: 500));
 
-Future<UserModel> register(
-  String name,
-  String email,
-  String password,
-) async {
-  final response = await dioService.dio.post(
-    'users/add',
-    data: {
-      "firstName": name,
-      "email": email,
-      "password": password,
-    },
-  );
-
-  return UserModel(
-    id: response.data['id'],
-    username: name,
-    email: email,
-    accessToken: "dummy_token",
-  );
-}
-
+    return UserModel(
+      id: DateTime.now().millisecondsSinceEpoch,
+      username: name,
+      email: email,
+      accessToken: "dummy_token",
+    );
+  }
 }

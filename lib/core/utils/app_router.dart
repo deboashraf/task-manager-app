@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:task_manger/core/network/dio_server.dart';
@@ -28,9 +29,25 @@ class AppRouter {
 
         GoRoute(
           path: '/projectDetails',
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final project = state.extra as ProjectModel;
-            return ProjectDetailsScreen(project: project);
+
+            return CustomTransitionPage(
+              child: ProjectDetailsScreen(project: project),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(1, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
+                    );
+                  },
+            );
           },
         ),
         GoRoute(
@@ -50,7 +67,7 @@ class AppRouter {
             return BlocProvider(
               create: (_) =>
                   AuthBloc(AuthRepository(AuthRemoteDataSource(dioService))),
-              child:  RegisterScreen(dioService: DioService(),),
+              child: RegisterScreen(dioService: DioService()),
             );
           },
         ),

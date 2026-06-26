@@ -3,13 +3,13 @@ import 'package:task_manger/core/network/dio_server.dart';
 import 'package:task_manger/core/utils/app_router.dart';
 
 void main() {
-  final dioService =DioService();
-  runApp( MyApp(dioService: dioService,));
+  final dioService = DioService();
+  runApp(MyApp(dioService: dioService));
 }
 
 class MyApp extends StatelessWidget {
   final DioService dioService;
-  
+
   const MyApp({super.key, required this.dioService});
 
   @override
@@ -17,10 +17,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router(dioService),
-      title: "Task Manager",
-      theme:ThemeData(
+      themeMode: ThemeMode.system,
+      theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: Colors.grey[100],
+        scaffoldBackgroundColor: const Color(0xffF5F7FA),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.indigo,
+        scaffoldBackgroundColor: const Color(0xff121212),
       ),
     );
   }
