@@ -70,7 +70,6 @@ State management is handled consistently using **flutter_bloc**.
 - Dio (HTTP client)
 - GoRouter (Navigation)
 - SharedPreferences (Local storage)
-- Logger (Debug logging)
 
 ---
 
@@ -89,32 +88,28 @@ State management is handled consistently using **flutter_bloc**.
 
 ## 📱 Screens
 
-- Splash Screen
-- Login Screen
-- Register Screen
-- Projects Screen
-- Project Details Screen
-- Profile Screen
+- Splash Screen  
+- Login Screen  
+- Register Screen  
+- Projects Screen  
+- Project Details Screen  
+- Profile Screen  
 
 ---
 
 ## 📸 Screenshots
 
-(Add screenshots inside `assets/screenshots/` folder)
+Place screenshots inside:
 assets/screenshots/
-├── login.png
-├── projects.png
-├── details.png
-├── profile.png
 
 text
 
 
-Then reference them like this:
+Example:
 
 ```markdown
 ![Login](assets/login.png)
-![Projects](assets/projests.png)
+![Projects](assets/projects.png)
 ![Details](assets/project-details.png)
 ![Profile](assets/profile.png)
 ▶️ How to Run
@@ -134,7 +129,6 @@ Run the app:
 text
 
 flutter run
-
 🧪 Test Login Credentials
 text
 
@@ -148,5 +142,5 @@ DummyJSON API is used as a mock backend.
 Registration is simulated because the API does not return a real JWT.
 The focus of this task is clean architecture, state management, and UI structure.
 👨‍💻 Author
-ِAbdallah Ashraf
+Abdallah Ashraf
 Flutter Developer
